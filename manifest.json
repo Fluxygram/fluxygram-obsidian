@@ -1,7 +1,7 @@
 {
   "id": "fluxygram",
   "name": "Fluxygram",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "minAppVersion": "1.4.0",
   "description": "Animated diagrams that explain themselves: write the JSON in a fluxygram code block and watch it play step by step.",
   "author": "Fluxygram",

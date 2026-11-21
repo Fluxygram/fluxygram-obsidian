@@ -1,6 +1,6 @@
 {
   "name": "fluxygram-obsidian",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "description": "Fluxygram for Obsidian: animated diagrams from fluxygram code blocks.",
   "license": "MIT",
@@ -11,7 +11,7 @@
   "devDependencies": {
     "@fluxygram/element": "^0.3.0",
     "obsidian": "^1.14.4",
-    "tsup": "^8.5.0",
+    "tsup": "^9.0.0",
     "typescript": "^5.9.3"
   }
 }
