@@ -1,25 +1,34 @@
 name: Release
 
-# Push a tag that matches manifest.json's version (no "v"), e.g. `git tag 0.3.0 && git push origin 0.3.0`.
+# Push a tag that matches manifest.json's version (no "v"), e.g. `git tag 0.3.1 && git push origin 0.3.1`.
 on:
   push:
     tags: ['*']
 
 permissions:
   contents: write
+  id-token: write # signs the attestation
+  attestations: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - run: npm install
+      - run: npm ci
       - run: npm run build
       - name: Check the tag matches manifest.json
         run: test "$(node -p "require('./manifest.json').version")" = "${GITHUB_REF_NAME}"
+      # Lets anyone verify main.js was built here: `gh attestation verify main.js -R Fluxygram/fluxygram-obsidian`.
+      - name: Attest the release assets
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            main.js
+            manifest.json
       - name: Create the release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
